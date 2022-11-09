@@ -21,10 +21,6 @@ namespace RefactoringToPatterns.CommandPattern
             _direction = direction;
             _obstacles = obstacles;
             movementFactory = new MovementFactory(this);
-            moveNorth = new MoveNorth(this);
-            moveWest = new MoveWest(this);
-            moveSouth = new MoveSouth(this);
-            moveEast = new MoveEast(this);
         }
         
         public string GetState()
@@ -36,24 +32,7 @@ namespace RefactoringToPatterns.CommandPattern
         {
             foreach(char command in commands)
             {
-                if (command == 'M')
-                {
-                    switch (_direction)
-                    {
-                        case 'E':
-                            moveEast.Move();
-                            break;
-                        case 'S':
-                            moveSouth.Move();
-                            break;
-                        case 'W':
-                            moveWest.Move();
-                            break;
-                        case 'N':
-                            moveNorth.Move();
-                            break;
-                    }
-                }
+                if (command == 'M') movementFactory.Create(_direction).Move();
                 else if(command == 'L')
                 {
                     // get new direction
