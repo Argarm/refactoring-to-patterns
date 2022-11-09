@@ -35,12 +35,16 @@ namespace RefactoringToPatterns.ComposeMethod
             AddElementToArray(element);
         }
 
-        private void AddElementToArray(object element) {
-            _elements[_size++] = element;
+        public object[] Elements() {
+            return _elements;
         }
 
-        private object[] IncreaseElementArraySize() {
-            return new object[_elements.Length + SizeToIncrease];
+        private bool MaxSizeExceeded(int newSize) {
+            return newSize > _elements.Length;
+        }
+
+        private void AddElementToArray(object element) {
+            _elements[_size++] = element;
         }
 
         private void InitializeNewElementArray(IList<object> newElements) {
@@ -48,15 +52,9 @@ namespace RefactoringToPatterns.ComposeMethod
                 newElements[i] = _elements[i];
         }
 
-        private bool MaxSizeExceeded(int newSize) {
-            return newSize > _elements.Length;
+        private object[] IncreaseElementArraySize() {
+            return new object[_elements.Length + SizeToIncrease];
         }
-
-        public object[] Elements()
-        {
-            return _elements;
-        }
-
     }
 
 }
