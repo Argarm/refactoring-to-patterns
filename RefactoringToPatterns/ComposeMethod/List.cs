@@ -15,24 +15,23 @@ namespace RefactoringToPatterns.ComposeMethod
         {
             _readOnly = readOnly;
             _size = 0;
-            _elements = new Object[_size];
+            _elements = new object[_size];
         }
 
-        public void Add(Object element) {
-            if(!_readOnly) {
-                int newSize = _size + 1;
+        public void Add(object element) {
+            if (_readOnly) return;
+            var newSize = _size + 1;
 
-                if(newSize > _elements.Length) {
-                    Object[] newElements = new Object[_elements.Length + 10];
+            if(newSize > _elements.Length) {
+                var newElements = new object[_elements.Length + 10];
 
-                    for (int i = 0; i < _size; i++)
-                        newElements[i] = _elements[i];
+                for (var i = 0; i < _size; i++)
+                    newElements[i] = _elements[i];
 
-                    _elements = newElements;
-                }
-
-                _elements[_size++] = element;
+                _elements = newElements;
             }
+
+            _elements[_size++] = element;
         }
 
         public object[] Elements()
