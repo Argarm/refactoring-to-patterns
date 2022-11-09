@@ -1,7 +1,7 @@
 using System.Linq;
 
 namespace RefactoringToPatterns.CommandPattern {
-    public class MoveSouth {
+    public class MoveSouth : IMove {
         private MarsRover marsRover;
 
         public MoveSouth(MarsRover marsRover) {
