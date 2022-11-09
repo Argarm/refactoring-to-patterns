@@ -45,5 +45,9 @@ namespace RefactoringToPatterns.CreationMethods
         {
             return _tvChannels != null;
         }
+
+        public static ProductPackage CreateFullPackage(string internetLabel, int telephoneNumber, string[] tvChannels) {
+            return new ProductPackage(internetLabel, telephoneNumber, tvChannels);
+        }
     }
 }
