@@ -12,6 +12,7 @@ namespace RefactoringToPatterns.CommandPattern
         private readonly MoveWest moveWest;
         private readonly MoveSouth moveSouth;
         private readonly MoveEast moveEast;
+        private readonly MovementFactory movementFactory;
 
         public MarsRover(int x, int y, char direction, string[] obstacles)
         {
@@ -19,6 +20,7 @@ namespace RefactoringToPatterns.CommandPattern
             _y = y;
             _direction = direction;
             _obstacles = obstacles;
+            movementFactory = new MovementFactory(this);
             moveNorth = new MoveNorth(this);
             moveWest = new MoveWest(this);
             moveSouth = new MoveSouth(this);
