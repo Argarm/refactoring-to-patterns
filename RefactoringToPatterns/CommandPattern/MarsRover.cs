@@ -12,7 +12,7 @@ namespace RefactoringToPatterns.CommandPattern
         private readonly MoveWest moveWest;
         private readonly MoveSouth moveSouth;
         private readonly MoveEast moveEast;
-        private readonly MovementFactory movementFactory;
+        private readonly MovementCommandFactory movementCommandFactory;
 
         public MarsRover(int x, int y, char direction, string[] obstacles)
         {
@@ -20,7 +20,7 @@ namespace RefactoringToPatterns.CommandPattern
             _y = y;
             _direction = direction;
             _obstacles = obstacles;
-            movementFactory = new MovementFactory(this);
+            movementCommandFactory = new MovementCommandFactory(this);
         }
         
         public string GetState()
@@ -32,7 +32,7 @@ namespace RefactoringToPatterns.CommandPattern
         {
             foreach(char command in commands)
             {
-                if (command == 'M') movementFactory.Create(_direction).Move();
+                if (command == 'M') movementCommandFactory.Create(_direction).Move();
                 else if(command == 'L')
                 {
                     // get new direction

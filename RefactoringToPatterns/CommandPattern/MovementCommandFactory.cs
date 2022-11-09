@@ -2,10 +2,10 @@ using System;
 using System.Collections.Generic;
 
 namespace RefactoringToPatterns.CommandPattern {
-    public class MovementFactory {
+    public class MovementCommandFactory {
         private Dictionary<char, Func<IMove>> movementList;
 
-        public MovementFactory(MarsRover marsRover) {
+        public MovementCommandFactory(MarsRover marsRover) {
             movementList = new Dictionary<char, Func<IMove>> {
                 { 'N', () => new MoveNorth(marsRover) },
                 { 'S', () => new MoveSouth(marsRover) },
