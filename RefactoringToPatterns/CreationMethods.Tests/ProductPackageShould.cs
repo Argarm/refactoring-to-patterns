@@ -7,7 +7,9 @@ namespace RefactoringToPatterns.CreationMethods.Tests
         [Fact]
         public void CreateAProductPackageWithOnlyInternet()
         {
-            var productPackage = new ProductPackage("100MB");
+            var productPackage = new PackageBuilder()
+                .WithInternet("100MB")
+                .Build();
 
             Assert.True(productPackage.HasInternet());
             Assert.False(productPackage.HasVOIP());
@@ -15,9 +17,11 @@ namespace RefactoringToPatterns.CreationMethods.Tests
         }
 
         [Fact]
-        public void CreateWithInternetAndVoip()
-        {
-            var productPackage = new ProductPackage("100MB", 91233788);
+        public void CreateWithInternetAndVoip() {
+            var productPackage = new PackageBuilder()
+                .WithInternet("100MB")
+                .WithVoip(91233788)
+                .Build();
 
             Assert.True(productPackage.HasInternet());
             Assert.True(productPackage.HasVOIP());
@@ -25,9 +29,11 @@ namespace RefactoringToPatterns.CreationMethods.Tests
         }
 
         [Fact]
-        public void CreateWithInternetAndTv()
-        {
-            var productPackage = new ProductPackage("100MB", new[] {"LaLiga", "Estrenos"});
+        public void CreateWithInternetAndTv() {
+            var productPackage = new PackageBuilder()
+                .WithInternet("100MB")
+                .WithTvChannels(new[] { "LaLiga", "Estrenos" })
+                .Build();
 
             Assert.True(productPackage.HasInternet());
             Assert.False(productPackage.HasVOIP());
@@ -50,7 +56,7 @@ namespace RefactoringToPatterns.CreationMethods.Tests
 
     public class PackageBuilder {
         private string internetLabel;
-        private int voip;
+        private int? voip;
         private string[] tvChannels;
 
         public PackageBuilder WithInternet(string internetLabel) {
