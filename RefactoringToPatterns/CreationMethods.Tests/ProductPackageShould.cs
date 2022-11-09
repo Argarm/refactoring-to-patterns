@@ -17,7 +17,7 @@ namespace RefactoringToPatterns.CreationMethods.Tests
         [Fact]
         public void CreateWithInternetAndVoip()
         {
-            var productPackage = ProductPackage.CreateInternetAndVoip(91233788, "100MB");
+            var productPackage = ProductPackage.CreateInternetAndVoipPackage(91233788, "100MB");
 
             Assert.True(productPackage.HasInternet());
             Assert.True(productPackage.HasVOIP());
@@ -27,7 +27,7 @@ namespace RefactoringToPatterns.CreationMethods.Tests
         [Fact]
         public void CreateWithInternetAndTv()
         {
-            var productPackage = new ProductPackage("100MB", new[] {"LaLiga", "Estrenos"});
+            var productPackage = ProductPackage.CreateInternetAndTvPackage("100MB", new[] {"LaLiga", "Estrenos"});
 
             Assert.True(productPackage.HasInternet());
             Assert.False(productPackage.HasVOIP());
