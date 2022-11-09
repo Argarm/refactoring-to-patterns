@@ -35,13 +35,41 @@ namespace RefactoringToPatterns.CreationMethods.Tests
         }
 
         [Fact]
-        public void CreateWithInternetVoipAndTv()
-        {
-            var productPackage = new ProductPackage("100MB", 91233788, new[] {"LaLiga", "Estrenos"});
+        public void CreateWithInternetVoipAndTv() {
+            var productPackage = new PackageBuilder()
+                .WithInternet("100MB")
+                .WithVoip(91233788)
+                .WithTvChannels(new[] { "LaLiga", "Estrenos" })
+                .Build();
 
             Assert.True(productPackage.HasInternet());
             Assert.True(productPackage.HasVOIP());
             Assert.True(productPackage.HasTv());
+        }
+    }
+
+    public class PackageBuilder {
+        private string internetLabel;
+        private int voip;
+        private string[] tvChannels;
+
+        public PackageBuilder WithInternet(string internetLabel) {
+            this.internetLabel = internetLabel;
+            return this;
+        }
+
+        public PackageBuilder WithVoip(int voip) {
+            this.voip = voip;
+            return this;
+        }
+
+        public PackageBuilder WithTvChannels(string[] tvChannels) {
+            this.tvChannels = tvChannels;
+            return this;
+        }
+
+        public ProductPackage Build() {
+            return ProductPackage.CreatePackage(internetLabel,voip,tvChannels);
         }
     }
 }
