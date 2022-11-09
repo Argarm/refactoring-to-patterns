@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 
@@ -9,7 +10,8 @@ namespace RefactoringToPatterns.ComposeMethod
 
         private readonly bool _readOnly;
         private int _size;
-        private Object[] _elements;
+        private object[] _elements;
+        private const int SizeToIncrease = 10;
 
         public List(bool readOnly)
         {
@@ -22,16 +24,32 @@ namespace RefactoringToPatterns.ComposeMethod
             if (_readOnly) return;
             var newSize = _size + 1;
 
-            if(newSize > _elements.Length) {
-                var newElements = new object[_elements.Length + 10];
+            if(MaxSizeExceeded(newSize)) {
+                var newElements = IncreaseElementArraySize();
 
-                for (var i = 0; i < _size; i++)
-                    newElements[i] = _elements[i];
+                InitializeNewElementArray(newElements);
 
                 _elements = newElements;
             }
 
+            AddElementToArray(element);
+        }
+
+        private void AddElementToArray(object element) {
             _elements[_size++] = element;
+        }
+
+        private object[] IncreaseElementArraySize() {
+            return new object[_elements.Length + SizeToIncrease];
+        }
+
+        private void InitializeNewElementArray(IList<object> newElements) {
+            for (var i = 0; i < _size; i++)
+                newElements[i] = _elements[i];
+        }
+
+        private bool MaxSizeExceeded(int newSize) {
+            return newSize > _elements.Length;
         }
 
         public object[] Elements()
